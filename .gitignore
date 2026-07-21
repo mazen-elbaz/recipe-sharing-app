@@ -1,0 +1,15 @@
+node_modules/
+
+dist/
+.angular/
+
+.env
+
+*.log
+npm-debug.log*
+
+.vscode/
+.idea/
+.DS_Store
+
+.angular/cache/
