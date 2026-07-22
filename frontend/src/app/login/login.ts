@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Authservice } from '../services/authservice';
 import { IUser } from '../models/iuser';
 
@@ -16,7 +17,10 @@ export class Login {
   };
   message = '';
 
-  constructor(private authservice: Authservice) {}
+  constructor(
+    private authservice: Authservice,
+    private router: Router,
+  ) {}
 
   login(form: NgForm) {
     if (form.valid) {
@@ -24,6 +28,7 @@ export class Login {
         next: (data) => {
           this.authservice.savedata(data);
           this.message = 'Login Done';
+          this.router.navigate(['/recipes']);
         },
         error: (err) => {
           this.message = err.error?.error || 'Login Failed';
