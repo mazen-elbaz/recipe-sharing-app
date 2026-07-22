@@ -1,0 +1,17 @@
+.app-navbar {
+  min-height: 72px;
+  background-color: var(--color-text);
+}
+
+.nav-link {
+  padding: 8px 14px;
+  border-radius: 8px;
+  color: var(--color-border);
+  text-decoration: none;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: var(--color-bg);
+  background-color: var(--color-primary);
+}

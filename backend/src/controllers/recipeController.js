@@ -2,7 +2,7 @@ const Recipe = require('../models/recipeModel');
 
 const createRecipe = async (req, res,next) => {
   try {
-    const recipe = new Recipe(req.body);
+    const recipe = new Recipe({ ...req.body, owner: req.user.id });
     await recipe.save();
     res.status(201).json(recipe);
   } catch (error) {
@@ -41,11 +41,11 @@ const getRecipeById=async(req,res,next)=> {
     const {id}=req.params;
     const recipe =await Recipe.findById(id).populate('owner','username');
     if(!recipe){
-      return res.status(404).jason({message:'Recipe not found'});
+      return res.status(404).json({message:'Recipe not found'});
 
     }
     const formattedRecipe={
-      _id:recipe_id,
+      _id:recipe._id,
       title:recipe.title,
       description:recipe.description||'',
       ingredients:recipe.ingredients,
@@ -56,7 +56,7 @@ const getRecipeById=async(req,res,next)=> {
       owner:recipe.owner 
       ? {
          _id:recipe.owner._id,
-         name: recipe.owner.name,
+         username: recipe.owner.username,
          
       }
       :null,
