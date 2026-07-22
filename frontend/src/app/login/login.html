@@ -1,0 +1,61 @@
+<main class="auth-page">
+  <div class="auth-card card border-0 shadow">
+    <div class="auth-header text-center">
+      <div class="auth-icon">🍲</div>
+      <h1 class="h2 mb-2">Welcome Back</h1>
+      <p class="mb-0">Login to continue sharing your favorite recipes</p>
+    </div>
+
+    <div class="card-body p-4">
+      <form #loginform="ngForm" (ngSubmit)="login(loginform)">
+        <div class="mb-3">
+          <label class="form-label">Email address</label>
+          <input
+            class="form-control"
+            type="email"
+            name="email"
+            [(ngModel)]="user.email"
+            #email="ngModel"
+            required
+            email
+          />
+          <div class="text-danger small mt-1" *ngIf="email.touched && email.invalid">
+            Enter a valid email address
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <label class="form-label">Password</label>
+          <input
+            class="form-control"
+            type="password"
+            name="password"
+            [(ngModel)]="user.password"
+            #password="ngModel"
+            required
+          />
+          <div class="text-danger small mt-1" *ngIf="password.touched && password.invalid">
+            Password is required
+          </div>
+        </div>
+
+        <button class="btn btn-primary w-100 py-2" type="submit" [disabled]="loginform.invalid">
+          Login
+        </button>
+
+        <div
+          class="alert mt-3 mb-0"
+          [class.alert-success]="message === 'Login Done'"
+          [class.alert-danger]="message !== 'Login Done'"
+          *ngIf="message"
+        >
+          {{ message }}
+        </div>
+      </form>
+
+      <p class="text-center text-muted mt-4 mb-0">
+        New to Recipe Share? <a routerLink="/register">Create an account</a>
+      </p>
+    </div>
+  </div>
+</main>

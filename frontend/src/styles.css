@@ -1,1 +1,106 @@
-/* You can add global styles to this file, and also import other style files */
+@import 'bootstrap/dist/css/bootstrap.min.css';
+
+:root {
+  --color-primary: #d97706;
+  --color-primary-hover: #b45309;
+  --color-secondary: #16a34a;
+  --color-danger: #dc2626;
+  --color-text: #1f2937;
+  --color-text-muted: #6b7280;
+  --color-bg: #ffffff;
+  --color-bg-subtle: #f9fafb;
+  --color-border: #e5e7eb;
+}
+
+body {
+  margin: 0;
+  color: var(--color-text);
+  background-color: var(--color-bg-subtle);
+}
+
+a {
+  color: var(--color-primary);
+}
+
+a:hover {
+  color: var(--color-primary-hover);
+}
+
+.btn-primary {
+  --bs-btn-bg: var(--color-primary);
+  --bs-btn-border-color: var(--color-primary);
+  --bs-btn-hover-bg: var(--color-primary-hover);
+  --bs-btn-hover-border-color: var(--color-primary-hover);
+  --bs-btn-active-bg: var(--color-primary-hover);
+  --bs-btn-active-border-color: var(--color-primary-hover);
+  --bs-btn-disabled-bg: var(--color-primary);
+  --bs-btn-disabled-border-color: var(--color-primary);
+}
+
+.text-danger {
+  color: var(--color-danger) !important;
+}
+
+.auth-page {
+  min-height: calc(100vh - 72px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 16px;
+  background:
+    radial-gradient(
+      circle at top left,
+      color-mix(in srgb, var(--color-primary) 18%, transparent),
+      transparent 35%
+    ),
+    var(--color-bg-subtle);
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 460px;
+  overflow: hidden;
+  border-radius: 20px;
+}
+
+.auth-header {
+  padding: 32px 24px;
+  color: var(--color-bg);
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-hover));
+}
+
+.auth-header p {
+  color: color-mix(in srgb, var(--color-bg) 85%, transparent);
+}
+
+.auth-icon {
+  margin-bottom: 8px;
+  font-size: 36px;
+}
+
+.auth-card .form-control {
+  min-height: 46px;
+  border-color: var(--color-border);
+  border-radius: 10px;
+}
+
+.auth-card .form-control:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 0.2rem color-mix(in srgb, var(--color-primary) 18%, transparent);
+}
+
+.auth-card .btn {
+  border-radius: 10px;
+  font-weight: 600;
+}
+
+@media (max-width: 576px) {
+  .auth-page {
+    align-items: flex-start;
+    padding-top: 24px;
+  }
+
+  .auth-header {
+    padding: 24px 20px;
+  }
+}
