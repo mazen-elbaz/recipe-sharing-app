@@ -1,0 +1,29 @@
+.home-hero {
+  background: linear-gradient(135deg, #fff7ed 0%, #ffffff 100%);
+}
+
+.home-highlight-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.home-highlight-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 1rem;
+  padding: 1.25rem;
+  box-shadow: 0 10px 30px rgba(31, 41, 55, 0.06);
+}
+
+.home-highlight-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 999px;
+  background: #fff7ed;
+  color: #b45309;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+}

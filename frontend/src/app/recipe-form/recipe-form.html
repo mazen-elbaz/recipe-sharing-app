@@ -1,0 +1,128 @@
+<main class="page-shell">
+  <div class="container">
+    <div class="form-card section-card p-4 p-md-5 mx-auto" style="max-width: 760px;">
+      <div class="mb-4">
+        <p class="page-eyebrow mb-2">Recipe Share</p>
+        <h1 class="h3 fw-bold mb-2">{{ titleText }}</h1>
+        <p class="text-muted mb-0">Fill in the recipe details below and share it with the community.</p>
+      </div>
+
+      @if (formError) {
+        <div class="alert alert-danger" role="alert">
+          {{ formError }}
+        </div>
+      }
+
+      <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
+        <div class="mb-3">
+          <label for="title" class="form-label">Recipe title</label>
+          <input
+            type="text"
+            id="title"
+            class="form-control"
+            formControlName="title"
+            placeholder="Enter recipe title">
+
+          <div class="text-danger small mt-1" *ngIf="recipeForm.get('title')?.touched && recipeForm.get('title')?.hasError('required')">
+            Recipe title is required.
+          </div>
+          <div class="text-danger small mt-1" *ngIf="recipeForm.get('title')?.touched && recipeForm.get('title')?.hasError('maxlength')">
+            Recipe title must be 120 characters or less.
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="description" class="form-label">Description</label>
+          <textarea
+            id="description"
+            rows="3"
+            class="form-control"
+            formControlName="description"
+            placeholder="Write a short description"></textarea>
+        </div>
+
+        <div class="mb-3">
+          <label for="ingredients" class="form-label">Ingredients</label>
+          <textarea
+            id="ingredients"
+            rows="4"
+            class="form-control"
+            formControlName="ingredients"
+            placeholder="Separate ingredients with commas"></textarea>
+
+          <div class="text-danger small mt-1" *ngIf="recipeForm.get('ingredients')?.touched && recipeForm.get('ingredients')?.hasError('required')">
+            Ingredients are required.
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="steps" class="form-label">Steps</label>
+          <textarea
+            id="steps"
+            rows="4"
+            class="form-control"
+            formControlName="steps"
+            placeholder="Separate steps with commas"></textarea>
+
+          <div class="text-danger small mt-1" *ngIf="recipeForm.get('steps')?.touched && recipeForm.get('steps')?.hasError('required')">
+            Steps are required.
+          </div>
+        </div>
+
+        <div class="row g-3">
+          <div class="col-12 col-md-6 mb-3">
+            <label for="category" class="form-label">Category</label>
+            <select
+              id="category"
+              class="form-select"
+              formControlName="category">
+              <option value="">Select category</option>
+              <option *ngFor="let category of categories" [value]="category">
+                {{ category }}
+              </option>
+            </select>
+
+            <div class="text-danger small mt-1" *ngIf="recipeForm.get('category')?.touched && recipeForm.get('category')?.hasError('required')">
+              Category is required.
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6 mb-3">
+            <label for="cookTime" class="form-label">Cook time (minutes)</label>
+            <input
+              type="number"
+              id="cookTime"
+              class="form-control"
+              formControlName="cookTime"
+              placeholder="30">
+
+            <div class="text-danger small mt-1" *ngIf="recipeForm.get('cookTime')?.touched && recipeForm.get('cookTime')?.hasError('min')">
+              Cook time must be 0 or greater.
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <label for="imageUrl" class="form-label">Image URL</label>
+          <input
+            type="text"
+            id="imageUrl"
+            class="form-control"
+            formControlName="imageUrl"
+            placeholder="https://example.com/image.jpg">
+
+          <div class="text-danger small mt-1" *ngIf="recipeForm.get('imageUrl')?.touched && recipeForm.get('imageUrl')?.hasError('pattern')">
+            Image URL must start with http:// or https://
+          </div>
+        </div>
+
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+          <a class="btn btn-outline-secondary" routerLink="/recipes">Cancel</a>
+          <button type="submit" class="btn btn-primary px-4" [disabled]="recipeForm.invalid || isSubmitting">
+            {{ submitText }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</main>
