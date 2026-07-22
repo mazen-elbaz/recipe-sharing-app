@@ -74,7 +74,55 @@ const getRecipeById = async (req, res, next) => {
     } catch (error) {
         next(error);
     }
-};
+    const formattedRecipe={
+      _id:recipe._id,
+      title:recipe.title,
+      description:recipe.description||'',
+      ingredients:recipe.ingredients,
+      steps:recipe.steps,
+      category:recipe.category,
+      cookTime:recipe.cookTime,
+      imageUrl: recipe.imageUrl ||null,
+      owner:recipe.owner 
+      ? {
+         _id:recipe.owner._id,
+         username: recipe.owner.username,
+         
+      }
+      :null,
+      createdAt:recipe.createdAt,
+      
+
+    };
+    res.status(200).json(formattedRecipe);
+  }catch(error){
+    next(error);
+  }
+}
+  const getAllRecipe=async(req,res,next)=>{
+    try{
+      const recipes=await Recipe.find().populate('owner','username');
+      const formattedRecipes=recipes.map(recipe=>({
+        _id:recipe._id,
+        title:recipe.title,
+        description:recipe.description||'',
+        ingredients:recipe.ingredients,
+        steps:recipe.steps,
+        category:recipe.category,
+        cookTime:recipe.cookTime,
+        imageUrl:recipe.imageUrl||null,
+        owner:recipe.owner
+        ?{
+          _id:recipe.owner._id,
+          username:recipe.owner.username,
+        }
+        :null,
+        createdAt:recipe.createdAt,
+      }));
+      res.status(200).json(formattedRecipes);
+    }catch(error){
+      next(error);
+    }
 
 const getAllRecipe = async (req, res, next) => {
     try {
@@ -114,9 +162,9 @@ const getAllRecipe = async (req, res, next) => {
 };
 
 module.exports = {
-    createRecipe,
-    updateRecipe,
-    deleteRecipe,
-    getRecipeById,
-    getAllRecipe,
+  createRecipe,
+  updateRecipe,
+  deleteRecipe,
+  getRecipeById,
+  getAllRecipe
 };

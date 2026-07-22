@@ -1,8 +1,33 @@
 <nav class="app-navbar navbar navbar-dark">
-  <div class="container">
-    <a class="navbar-brand fw-bold" routerLink="/login">🍴 Recipe Share</a>
+  <div class="container d-flex align-items-center">
+    <a class="navbar-brand fw-bold" routerLink="/home">🍴 Recipe Share</a>
 
-    <div class="d-flex align-items-center gap-2">
+    <div class="d-flex flex-grow-1 justify-content-center gap-3">
+      <a
+        class="nav-link"
+        routerLink="/home"
+        routerLinkActive="active"
+      >
+        Home
+      </a>
+      <a
+        class="nav-link"
+        routerLink="/recipes"
+        routerLinkActive="active"
+      >
+        Recipes
+      </a>
+      <a
+        class="nav-link"
+        routerLink="/recipes/create"
+        routerLinkActive="active"
+        *ngIf="authservice.isloggedin()"
+      >
+        Add Recipe
+      </a>
+    </div>
+
+    <div class="d-flex align-items-center gap-2 ms-auto">
       <a
         class="nav-link"
         routerLink="/login"
@@ -29,5 +54,6 @@
     </div>
   </div>
 </nav>
-
-<router-outlet></router-outlet>
+<main class="container my-4">
+  <router-outlet />
+</main>

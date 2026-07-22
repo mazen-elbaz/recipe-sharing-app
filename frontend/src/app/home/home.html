@@ -1,0 +1,66 @@
+<main class="page-shell">
+  <div class="container">
+    <section class="section-card home-hero p-4 p-md-5 mb-4">
+      <div class="row align-items-center g-4">
+        <div class="col-12 col-lg-7">
+          <p class="page-eyebrow mb-2">Recipe Share</p>
+          <h1 class="display-5 fw-bold mb-3">Cook, share, and discover recipes with your community.</h1>
+          <p class="text-muted lead mb-4">
+            A simple place to publish your favorite meals, browse inspiration, and keep your recipes organized.
+          </p>
+
+          <div class="d-flex flex-wrap gap-2">
+            <a class="btn btn-primary" routerLink="/recipes">Browse Recipes</a>
+            <a class="btn btn-outline-primary"  *ngIf="loggedIn" routerLink="/recipes/create">Add Recipe</a>
+            <a class="btn btn-outline-secondary"  *ngIf="!loggedIn" routerLink="/login">Login</a>
+          </div>
+        </div>
+
+        <div class="col-12 col-lg-5">
+          <div class="home-highlight-grid">
+            <article class="home-highlight-card">
+              <span class="home-highlight-number">01</span>
+              <h2 class="h5 fw-bold mb-2">Share your best dishes</h2>
+              <p class="text-muted mb-0">Publish ingredients, steps, cook time, and a photo in one place.</p>
+            </article>
+
+            <article class="home-highlight-card">
+              <span class="home-highlight-number">02</span>
+              <h2 class="h5 fw-bold mb-2">Find new ideas fast</h2>
+              <p class="text-muted mb-0">Jump into the recipe list and discover what others are making.</p>
+            </article>
+
+            <article class="home-highlight-card">
+              <span class="home-highlight-number">03</span>
+              <h2 class="h5 fw-bold mb-2">Keep everything organized</h2>
+              <p class="text-muted mb-0">Use the shared layout to keep the experience clean and easy to scan.</p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="row g-4">
+      <div class="col-12 col-md-4">
+        <article class="section-card p-4 h-100">
+          <h2 class="h5 fw-bold mb-2">Fresh recipes</h2>
+          <p class="text-muted mb-0">See what the community is cooking right now.</p>
+        </article>
+      </div>
+
+      <div class="col-12 col-md-4">
+        <article class="section-card p-4 h-100">
+          <h2 class="h5 fw-bold mb-2">Simple publishing</h2>
+          <p class="text-muted mb-0">Use the recipe form to add your own recipe quickly.</p>
+        </article>
+      </div>
+
+      <div class="col-12 col-md-4">
+        <article class="section-card p-4 h-100">
+          <h2 class="h5 fw-bold mb-2">Clean navigation</h2>
+          <p class="text-muted mb-0">Move between home, recipes, and create pages from the navbar.</p>
+        </article>
+      </div>
+    </section>
+  </div>
+</main>
