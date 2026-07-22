@@ -25,6 +25,14 @@
       >
         Add Recipe
       </a>
+      <a
+        class="nav-link"
+        routerLink="/recipes/mine"
+        routerLinkActive="active"
+        *ngIf="authservice.isloggedin()"
+      >
+        My Recipes
+      </a>
     </div>
 
     <div class="d-flex align-items-center gap-2 ms-auto">

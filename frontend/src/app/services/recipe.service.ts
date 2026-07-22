@@ -17,6 +17,10 @@ export class RecipeService {
         return this.http.get<IRecipe>(`${this.apiUrl}/${id}`);
     }
 
+    getMyRecipes(): Observable<IRecipe[]> {
+        return this.http.get<IRecipe[]>(`${this.apiUrl}/mine`);
+    }
+
     createRecipe(recipe: Partial<IRecipe>): Observable<IRecipe> {
         return this.http.post<IRecipe>(this.apiUrl, recipe);
     }
