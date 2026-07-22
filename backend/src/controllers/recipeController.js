@@ -2,7 +2,7 @@ const Recipe = require('../models/recipeModel');
 
 const createRecipe = async (req, res,next) => {
   try {
-    const recipe = new Recipe(req.body);
+    const recipe = new Recipe({ ...req.body, owner: req.user.id });
     await recipe.save();
     res.status(201).json(recipe);
   } catch (error) {
