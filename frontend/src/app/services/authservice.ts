@@ -17,7 +17,7 @@ export class Authservice {
 
   savedata(data: IAuthResponse) {
     localStorage.setItem('token', data.token);
-    localStorage.setItem('user', JSON.stringify(data.user));
+    // localStorage.setItem('user', JSON.stringify(data.user));
   }
 
   gettoken() {
