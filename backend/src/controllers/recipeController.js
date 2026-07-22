@@ -2,7 +2,7 @@ const Recipe = require('../models/recipeModel');
 
 const createRecipe = async (req, res,next) => {
   try {
-    const recipe = new Recipe(req.body);
+    const recipe = new Recipe({ ...req.body, owner: req.user.id });
     await recipe.save();
     res.status(201).json(recipe);
   } catch (error) {
@@ -36,8 +36,44 @@ const deleteRecipe = async (req, res,next) => {
   }
 };
 
+const getRecipeById=async(req,res,next)=> {
+  try{
+    const {id}=req.params;
+    const recipe =await Recipe.findById(id).populate('owner','username');
+    if(!recipe){
+      return res.status(404).jason({message:'Recipe not found'});
+
+    }
+    const formattedRecipe={
+      _id:recipe_id,
+      title:recipe.title,
+      description:recipe.description||'',
+      ingredients:recipe.ingredients,
+      steps:recipe.steps,
+      category:recipe.category,
+      cookTime:recipe.cookTime,
+      imageUrl: recipe.imageUrl ||null,
+      owner:recipe.owner 
+      ? {
+         _id:recipe.owner._id,
+         name: recipe.owner.name,
+         
+      }
+      :null,
+      createdAt:recipe.createdAt,
+      
+
+    };
+    res.status(200).jason(formattedRecipe);
+  }catch(error){
+    next(error);
+  }
+
+};
+
 module.exports = {
   createRecipe,
   updateRecipe,
   deleteRecipe,
+  getRecipeById,
 };
