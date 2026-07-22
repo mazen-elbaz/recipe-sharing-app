@@ -4,6 +4,8 @@ A full-stack web app for sharing, browsing, and managing cooking recipes. Built 
 
 See [`API.md`](./API.md) for the full API contract, database schemas, and team decisions on JWT expiry, recipe categories, and image handling. Read that file before writing any endpoint or form code.
 
+See [`DESIGN_SYSTEM.md`](./DESIGN_SYSTEM.md) before building or styling any frontend page so all team members use the same colors, layouts, cards, forms, and responsive rules.
+
 ---
 
 ## Features
