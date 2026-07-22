@@ -61,8 +61,6 @@ const getRecipeById=async(req,res,next)=> {
       }
       :null,
       createdAt:recipe.createdAt,
-      
-
     };
     res.status(200).json(formattedRecipe);
   }catch(error){
@@ -71,9 +69,19 @@ const getRecipeById=async(req,res,next)=> {
 
 };
 
+const getMyRecipes = async (req, res, next) => {
+  try {
+    const recipes = await Recipe.find({ owner: req.user.id });
+    res.status(200).json(recipes);
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   createRecipe,
   updateRecipe,
   deleteRecipe,
   getRecipeById,
+  getMyRecipes
 };

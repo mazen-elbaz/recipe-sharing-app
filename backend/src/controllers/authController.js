@@ -1,7 +1,6 @@
 const Users = require("../models/userModel")
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
-
 const register = async (req, res, next) => {
     try {
         const { username, email, password } = req.body
@@ -51,7 +50,6 @@ const register = async (req, res, next) => {
         next(err)
     }
 }
-
 const login = async (req, res, next) => {
     try {
         const { email, password } = req.body
@@ -59,9 +57,7 @@ const login = async (req, res, next) => {
         if (!email || !password) {
             return res.status(401).json({ error: "Invalid email or password" })
         }
-
         const user = await Users.findOne({ email: email.toLowerCase() })
-
         if (!user) {
             return res.status(401).json({ error: "Invalid email or password" })
         }
@@ -90,7 +86,6 @@ const login = async (req, res, next) => {
         next(err)
     }
 }
-
 module.exports = {
     register,
     login

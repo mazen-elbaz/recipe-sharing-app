@@ -1,5 +1,5 @@
-const dotenv = require('dotenv');
-dotenv.config({ path: __dirname + '/../.env' });
+const dotenv = require('dotenv').config();
+console.log("MONGO:", process.env.MONGO_URI);
 const express = require('express');
 const cors = require('cors');
 const connectDB = require('./configs/db');
