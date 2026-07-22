@@ -7,5 +7,6 @@ const ownerShipMiddleware = require('../middleware/ownerShip.middleware');
 router.post('/recipes', authMiddleware, recipeController.createRecipe);
 router.put('/recipes/:id', authMiddleware, ownerShipMiddleware, recipeController.updateRecipe);
 router.delete('/recipes/:id', authMiddleware, ownerShipMiddleware, recipeController.deleteRecipe);
+router.get('/recipes/:id',recipeController.getRecipeById);
 
 module.exports = router;
