@@ -1,0 +1,17 @@
+
+.recipe-hero-img {
+  height: 350px;
+  object-fit: cover;
+  border: 1px solid var(--color-border);
+}
+
+.section-card {
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 0.5rem;
+}
+
+.recipe-meta {
+  font-size: 0.95rem;
+}
+
