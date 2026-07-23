@@ -11,10 +11,14 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RecipeForm } from './recipe-form/recipe-form';
 import { RecipeList } from './recipe-list/recipe-list';
 import { Home } from './home/home';
+import { RecipeDetails } from './recipe-details/recipe-details';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+
 
 @NgModule({
-  declarations: [App, Login, Register, RecipeForm, RecipeList, Home],
-  imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule, ReactiveFormsModule],
+  declarations: [App, Login, Register, RecipeForm, RecipeList, RecipeDetails,Home],
+  imports: [BrowserModule,CommonModule, AppRoutingModule, FormsModule, HttpClientModule, ReactiveFormsModule,RouterModule],
   providers: [
     provideBrowserGlobalErrorListeners(),
     {

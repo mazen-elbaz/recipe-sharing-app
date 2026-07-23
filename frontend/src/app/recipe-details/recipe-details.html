@@ -1,0 +1,137 @@
+<main class="page-shell">
+  <div class="container">
+    
+    <!-- زر العودة Back -->
+    <div class="row mb-4">
+      <div class="col-12">
+        <button class="btn btn-outline-secondary" (click)="goBack()">
+          &larr; Back
+        </button>
+      </div>
+    </div>
+
+
+    <!-- حالة التحميل Loading State -->
+    <div *ngIf="isLoading" class="row py-5 text-center">
+      <div class="col-12">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+    </div>
+
+
+    
+    <div *ngIf="!isLoading && errorMessage" class="row py-5">
+      <div class="col-12 text-center">
+        <div class="alert alert-danger" role="alert">
+          {{ errorMessage }}
+        </div>
+        <button class="btn btn-outline-secondary mt-2" (click)="goBack()">
+          Back to Recipes
+        </button>
+      </div>
+    </div>
+
+
+   
+    <div *ngIf="!isLoading && !errorMessage && recipe">
+      
+     
+      <div class="row mb-4">
+        <div class="col-12">
+          <div class="recipe-hero-container">
+            <img 
+              [src]="recipe.imageUrl || 'assets/placeholder.jpg'" 
+              [alt]="recipe.title || 'Recipe Image'" 
+              class="img-fluid rounded w-100 recipe-hero-img"
+            />
+          </div>
+        </div>
+      </div>
+
+
+      <!-- Header المعلومات المختصرة والعنوان -->
+      <div class="row mb-4">
+        <div class="col-12">
+          <div class="page-header d-flex flex-column flex-md-row justify-content-between align-items-md-start gap-3">
+            <div>
+              <p class="page-eyebrow mb-1">Recipe Share</p>
+              <h1 class="fw-bold mb-2">{{ recipe.title }}</h1>
+              <p class="text-muted mb-0 recipe-meta">
+                <span class="me-3" *ngIf="recipe.category"><strong>Category:</strong> {{ recipe.category }}</span>
+                <span class="me-3" *ngIf="recipe.cookTime"><strong>Cook Time:</strong> {{ recipe.cookTime }} mins</span>
+                <span *ngIf="recipe.owner?.username"><strong>By:</strong> {{ recipe.owner.username }}</span>
+              </p>
+            </div>
+
+
+            <!-- أزرار التعديل والحذف - تظهر فقط لصاحب الوصفة -->
+            <div class="d-flex gap-2" *ngIf="isOwner">
+              <button class="btn btn-outline-primary" (click)="onEdit()">Edit</button>
+              <button class="btn btn-danger" (click)="onDelete()">Delete</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- Description -->
+      <div class="row mb-4" *ngIf="recipe.description">
+        <div class="col-12">
+          <p class="lead text-muted">{{ recipe.description }}</p>
+        </div>
+      </div>
+
+
+      <!-- Ingredients & Steps Sections (كروت منفصلة) -->
+      <div class="row g-4">
+        
+        <!-- Ingredients Section Card -->
+        <div class="col-12 col-md-6">
+          <section class="section-card p-4 h-100">
+            <h2 class="h4 fw-bold mb-3">Ingredients</h2>
+            
+            <ul class="mb-0 ps-3" *ngIf="recipe.ingredients && recipe.ingredients.length; else emptyIngredients">
+              <li class="mb-2" *ngFor="let ingredient of recipe.ingredients">
+                {{ ingredient }}
+              </li>
+            </ul>
+
+
+            <ng-template #emptyIngredients>
+              <p class="text-muted mb-0">No ingredients listed for this recipe.</p>
+            </ng-template>
+          </section>
+        </div>
+
+
+        <!-- Steps Section Card -->
+        <div class="col-12 col-md-6">
+          <section class="section-card p-4 h-100">
+            <h2 class="h4 fw-bold mb-3">Steps</h2>
+            
+            <ol class="mb-0 ps-3" *ngIf="recipe.steps && recipe.steps.length; else emptySteps">
+              <li class="mb-2" *ngFor="let step of recipe.steps">
+                {{ step }}
+              </li>
+            </ol>
+
+
+            <ng-template #emptySteps>
+              <p class="text-muted mb-0">No steps listed for this recipe.</p>
+            </ng-template>
+          </section>
+        </div>
+
+
+      </div>
+
+
+    </div>
+
+
+  </div>
+</main>
+
+

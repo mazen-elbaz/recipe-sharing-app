@@ -36,42 +36,50 @@ const deleteRecipe = async (req, res,next) => {
   }
 };
 
-const getRecipeById=async(req,res,next)=> {
-  try{
-    const {id}=req.params;
-    const recipe =await Recipe.findById(id).populate('owner','username');
-    if(!recipe){
-      return res.status(404).json({message:'Recipe not found'});
+const getRecipeById = async (req, res, next) => {
+  try {
+    const { id } = req.params;
 
+   
+    if (!id || id.length !== 24) {
+      return res.status(400).json({ message: 'Invalid Recipe ID format' });
     }
-    const formattedRecipe={
-      _id:recipe._id,
-      title:recipe.title,
-      description:recipe.description||'',
-      ingredients:recipe.ingredients,
-      steps:recipe.steps,
-      category:recipe.category,
-      cookTime:recipe.cookTime,
-      imageUrl: recipe.imageUrl ||null,
-      owner:recipe.owner 
-      ? {
-         _id:recipe.owner._id,
-         username: recipe.owner.username,
-         
-      }
-      :null,
-      createdAt:recipe.createdAt,
-      
 
+    const recipe = await Recipe.findById(id).populate('owner', 'username');
+
+    if (!recipe) {
+      return res.status(404).json({ message: 'Recipe not found' });
+    }
+
+    const formattedRecipe = {
+      _id: recipe._id,
+      title: recipe.title,
+      description: recipe.description || '',
+      ingredients: recipe.ingredients || [],
+      steps: recipe.steps || [],
+      category: recipe.category,
+      cookTime: recipe.cookTime,
+      imageUrl: recipe.imageUrl || null,
+      owner: (recipe.owner && recipe.owner._id)
+        ? {
+            _id: recipe.owner._id,
+            username: recipe.owner.username || 'Unknown',
+          }
+        : null,
+      createdAt: recipe.createdAt,
     };
-    res.status(200).json(formattedRecipe);
-  }catch(error){
-    next(error);
+
+    return res.status(200).json(formattedRecipe);
+  } catch (error) {
+    console.error('Error in getRecipeById:', error);
+   
+    return res.status(500).json({ message: 'Internal Server Error', error: error.message });
   }
-}
+};
+
   const getAllRecipe=async(req,res,next)=>{
     try{
-      const recipes=await Recipe.find().populate('owner','username');
+      const recipes=await Recipe.find().populate('owner');
       const formattedRecipes=recipes.map(recipe=>({
         _id:recipe._id,
         title:recipe.title,
@@ -84,7 +92,7 @@ const getRecipeById=async(req,res,next)=> {
         owner:recipe.owner
         ?{
           _id:recipe.owner._id,
-          username:recipe.owner.username,
+          username:recipe.owner.username || 'Unknown',
         }
         :null,
         createdAt:recipe.createdAt,
