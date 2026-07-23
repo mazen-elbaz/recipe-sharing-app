@@ -10,9 +10,14 @@
           </p>
 
           <div class="d-flex flex-wrap gap-2">
-            <a class="btn btn-primary" routerLink="/recipes">Browse Recipes</a>
-            <a class="btn btn-outline-primary"  *ngIf="loggedIn" routerLink="/recipes/create">Add Recipe</a>
-            <a class="btn btn-outline-secondary"  *ngIf="!loggedIn" routerLink="/login">Login</a>
+             <a class="btn btn-primary" routerLink="/recipes">Browse Recipes</a>
+
+               @if (loggedIn) {
+               <a class="btn btn-outline-primary" routerLink="/recipes/create">Add Recipe</a>
+               } @else {
+                <a class="btn btn-outline-secondary" routerLink="/login">Login</a>
+                }
+
           </div>
         </div>
 
