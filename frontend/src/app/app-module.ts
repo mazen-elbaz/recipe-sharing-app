@@ -11,9 +11,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RecipeForm } from './recipe-form/recipe-form';
 import { RecipeList } from './recipe-list/recipe-list';
 import { Home } from './home/home';
+import { MyRecipes } from './my-recipes/my-recipes';
 
 @NgModule({
-  declarations: [App, Login, Register, RecipeForm, RecipeList, Home],
+  declarations: [App, Login, Register, RecipeForm, RecipeList, Home, MyRecipes],
   imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule, ReactiveFormsModule],
   providers: [
     provideBrowserGlobalErrorListeners(),
