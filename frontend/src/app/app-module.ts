@@ -14,10 +14,11 @@ import { Home } from './home/home';
 import { RecipeDetails } from './recipe-details/recipe-details';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { MyRecipes } from './my-recipes/my-recipes';
 
 
 @NgModule({
-  declarations: [App, Login, Register, RecipeForm, RecipeList, RecipeDetails,Home],
+  declarations: [App, Login, Register, RecipeForm, RecipeList, RecipeDetails,Home,MyRecipes],
   imports: [BrowserModule,CommonModule, AppRoutingModule, FormsModule, HttpClientModule, ReactiveFormsModule,RouterModule],
   providers: [
     provideBrowserGlobalErrorListeners(),
