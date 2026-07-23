@@ -8,19 +8,39 @@ import { IRecipe } from '../models/irecipe';
   templateUrl: './recipe-list.html',
   styleUrls: ['./recipe-list.css']
 })
-  export class RecipeList implements OnInit {
+export class RecipeList implements OnInit {
 
   recipes: IRecipe[] = [];
-  
-  constructor(private recipeService: RecipeService, private CI:ChangeDetectorRef) {}
-  ngOnInit(): void {
-  console.log("ngOnInit");
 
-  this.recipeService.getAllRecipes().subscribe({
-    next: (data) => {
-      this.recipes = data;
-      this.CI.detectChanges();
-    }
-  });
-}
+  searchTerm: string = '';
+  selectedCategory: string = '';
+  cookTime: number | null = null;
+
+  constructor(
+    private recipeService: RecipeService,
+    private CI: ChangeDetectorRef
+  ) {}
+
+  ngOnInit(): void {
+    this.searchRecipes();
+  }
+
+
+  searchRecipes(): void {
+
+    this.recipeService.getAllRecipes(
+      this.searchTerm,
+      this.selectedCategory,
+      this.cookTime
+    ).subscribe({
+      next: (data) => {
+        this.recipes = data;
+        this.CI.detectChanges();
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    });
+
+  }
 }

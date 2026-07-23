@@ -1,64 +1,107 @@
-<main class="page-shell">
-  <div class="container">
-    <div class="page-header mb-4">
-      <div>
-        <p class="page-eyebrow mb-2">Recipe Share</p>
-        <h1 class="fw-bold mb-2">All Recipes</h1>
-        <p class="text-muted mb-0">Browse the latest community recipes and discover something new to cook today.</p>
-      </div>
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h1 class="h3 fw-bold">Recipes</h1>
+  <a class="btn btn-primary" routerLink="/recipes/create">Add Recipe</a>
+</div>
 
-      <a class="btn btn-primary" routerLink="/recipes/create">Add Recipe</a>
-    </div>
+<!-- Search -->
+<div class="row mb-4">
+  <div class="col-md-6">
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Search recipes..."
+      [(ngModel)]="searchTerm"
+      (input)="searchRecipes()"
+    />
+  </div>
 
-    @if (recipes.length === 0) {
-      <div class="empty-state section-card p-4 p-md-5 text-center">
-        <h2 class="h4 fw-bold">No recipes yet</h2>
-        <p class="text-muted mb-4">Start by sharing the first recipe with the community.</p>
-        <a class="btn btn-primary" routerLink="/recipes/create">Add Recipe</a>
-      </div>
-    } @else {
-      <div class="row g-4">
-        @for (recipe of recipes; track recipe._id) {
-          <div class="col-12 col-md-6 col-lg-4">
-            <article class="recipe-card h-100 overflow-hidden">
-              @if (recipe.imageUrl) {
-                <img
-                  class="recipe-card-image"
-                  [src]="recipe.imageUrl"
-                  [alt]="recipe.title"
-                />
-              } @else {
-                <div class="recipe-card-image recipe-image-placeholder d-flex align-items-center justify-content-center text-muted">
-                  No image available
-                </div>
-              }
+  <div class="col-md-3">
+    <select
+      class="form-select"
+      [(ngModel)]="selectedCategory"
+      (change)="searchRecipes()"
+    >
+      <option value="">All Categories</option>
+      <option value="Breakfast">Breakfast</option>
+      <option value="Main Course">Main Course</option>
+      <option value="Dessert">Dessert</option>
+      <option value="Appetizer">Appetizer</option>
+      <option value="Salad">Salad</option>
+      <option value="Soup">Soup</option>
+      <option value="Beverage">Beverage</option>
+      <option value="Snack">Snack</option>
+    </select>
+  </div>
 
-              <div class="p-4 d-flex flex-column h-100">
-                <div class="d-flex justify-content-between align-items-center gap-2 mb-2">
-                  <span class="badge text-bg-light">{{ recipe.category }}</span>
-                  <span class="recipe-meta">{{ recipe.cookTime }} min</span>
-                </div>
+  <div class="col-md-3">
+    <input
+      type="number"
+      class="form-control"
+      placeholder="Max cook time"
+      [(ngModel)]="cookTime"
+      (input)="searchRecipes()"
+    />
+  </div>
+</div>
 
-                <h2 class="h5 fw-bold mb-2">{{ recipe.title }}</h2>
-                <p class="recipe-description text-muted mb-3">{{ recipe.description }}</p>
+@if (recipes.length === 0) {
+  <div class="empty-state section-card p-4 p-md-5 text-center">
+    <h2 class="h4 fw-bold">No recipes yet</h2>
+    <p class="text-muted mb-4">
+      Start by sharing the first recipe with the community.
+    </p>
+    <a class="btn btn-primary" routerLink="/recipes/create">Add Recipe</a>
+  </div>
+} @else {
+  <div class="row g-4">
+    @for (recipe of recipes; track recipe._id) {
+      <div class="col-12 col-md-6 col-lg-4">
+        <article class="recipe-card h-100 overflow-hidden">
 
-                <div class="mt-auto">
-                  <div class="d-flex flex-wrap gap-3 recipe-meta mb-3">
-                    <span>By {{ recipe.owner?.username ?? 'Unknown User' }}</span>
-                    <span>{{ recipe.createdAt | date:'mediumDate' }}</span>
-                  </div>
+          @if (recipe.imageUrl) {
+            <img
+              class="recipe-card-image"
+              [src]="recipe.imageUrl"
+              [alt]="recipe.title"
+            />
+          } @else {
+            <div
+              class="recipe-card-image recipe-image-placeholder d-flex align-items-center justify-content-center text-muted">
+              No image available
+            </div>
+          }
 
-                  <div class="d-grid">
-                    <a class="btn btn-outline-primary w-100" [routerLink]="['/recipes/edit', recipe._id]">
-                      Edit Recipe
-                    </a>
-                  </div>
-                </div>
+          <div class="p-4 d-flex flex-column h-100">
+
+            <div class="d-flex justify-content-between align-items-center gap-2 mb-2">
+              <span class="badge text-bg-light">{{ recipe.category }}</span>
+              <span class="recipe-meta">{{ recipe.cookTime }} min</span>
+            </div>
+
+            <h2 class="h5 fw-bold mb-2">{{ recipe.title }}</h2>
+
+            <p class="recipe-description text-muted mb-3">
+              {{ recipe.description }}
+            </p>
+
+            <div class="mt-auto">
+              <div class="d-flex flex-wrap gap-3 recipe-meta mb-3">
+                <span>By {{ recipe.owner?.username ?? 'Unknown User' }}</span>
+                <span>{{ recipe.createdAt | date:'mediumDate' }}</span>
               </div>
-            </article>
+
+              <div class="d-grid">
+                <a
+                  class="btn btn-outline-primary w-100"
+                  [routerLink]="['/recipes/edit', recipe._id]">
+                  Edit Recipe
+                </a>
+              </div>
+            </div>
+
           </div>
-        }
+        </article>
       </div>
     }
   </div>
-</main>
+}
