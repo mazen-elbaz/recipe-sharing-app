@@ -76,34 +76,54 @@ const getRecipeById = async (req, res, next) => {
     return res.status(500).json({ message: 'Internal Server Error', error: error.message });
   }
 };
+const getAllRecipe = async (req, res, next) => {
+  try {
+    const { search, category, cookTime } = req.query;
 
-  const getAllRecipe=async(req,res,next)=>{
-    try{
-      const recipes=await Recipe.find().populate('owner');
-      const formattedRecipes=recipes.map(recipe=>({
-        _id:recipe._id,
-        title:recipe.title,
-        description:recipe.description||'',
-        ingredients:recipe.ingredients,
-        steps:recipe.steps,
-        category:recipe.category,
-        cookTime:recipe.cookTime,
-        imageUrl:recipe.imageUrl||null,
-        owner:recipe.owner
-        ?{
-          _id:recipe.owner._id,
-          username:recipe.owner.username || 'Unknown',
-        }
-        :null,
-        createdAt:recipe.createdAt,
-      }));
-      res.status(200).json(formattedRecipes);
-    }catch(error){
-      next(error);
+    const filter = {};
+
+    if (search) {
+      filter.title = {
+        $regex: search,
+        $options: "i",
+      };
     }
 
-};
+    if (category) {
+      filter.category = category;
+    }
 
+    if (cookTime) {
+      filter.cookTime = {
+        $lte: Number(cookTime),
+      };
+    }
+
+    const recipes = await Recipe.find(filter).populate("owner", "username");
+
+    const formattedRecipes = recipes.map(recipe => ({
+      _id: recipe._id,
+      title: recipe.title,
+      description: recipe.description || "",
+      ingredients: recipe.ingredients,
+      steps: recipe.steps,
+      category: recipe.category,
+      cookTime: recipe.cookTime,
+      imageUrl: recipe.imageUrl || null,
+      owner: recipe.owner
+        ? {
+            _id: recipe.owner._id,
+            username: recipe.owner.username || "Unknown",
+          }
+        : null,
+      createdAt: recipe.createdAt,
+    }));
+
+    res.status(200).json(formattedRecipes);
+  } catch (error) {
+    next(error);
+  }
+};
 const getMyRecipes = async (req, res, next) => {
   try {
     const recipes = await Recipe.find({ owner: req.user.id }).populate('owner', 'username');
